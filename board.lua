@@ -1,7 +1,6 @@
 -- board stuff:
 
 TILE = 12 -- fixed cell width,height
-TILE_COLOR = {0, 0, 0} -- cell color
 auto = false -- for auto cell updates
 
 function create_cells()
@@ -11,10 +10,10 @@ function create_cells()
   for y = 1, HEI/TILE do
     cells[y] = {}
     for x = 1, WID/TILE do
-      cells[y][x] = false
+      cells[y][x] = (math.random(1,2)==1 and true or false)
       -- init with false (dead cell)
     end
-  end
+  end 
   
   return cells
   
@@ -34,8 +33,14 @@ function draw_net()
   
 end
 
+-- init with random cell color
+CELL_COLOR = {math.random(), math.random(), math.random()}
+
 function draw_cells()
   -- draw the cells to the screen
+  
+  -- set drawing color to the cell color
+  love.graphics.setColor(CELL_COLOR)
   
   for y = 1, HEI/TILE do
     for x = 1, WID/TILE do
@@ -45,6 +50,9 @@ function draw_cells()
       end
     end
   end
+  
+  -- reset drawing color
+  love.graphics.setColor(1, 1, 1)
   
 end
 
@@ -67,9 +75,11 @@ function neighbours(x, y)
     if x_i>=1 and y_i>=1
     and x_i <= WID/TILE
     and y_i <= HEI/TILE then
+      
       if board[y_i][x_i] then
-        count = count + 1
+        count = count + 1 -- count living cell
       end
+      
     end
     
   end
