@@ -10,18 +10,18 @@ function love.load()
   WID = love.graphics.getWidth()
   HEI = love.graphics.getHeight()
   
-  require("board")
+  require("grid")
   
-  -- create a new board
-  board = create_cells()
+  -- create a new grid
+  grid = create_cells()
   
 end
 
 function love.update(dt)
   
-  -- automatically update the board
+  -- automatically update the grid
   if auto then
-    board = updated_board()
+    grid = updated_grid()
   end
   
 end
@@ -32,7 +32,7 @@ function love.mousepressed(mx, my, btn)
   my = math.ceil(my/TILE)
   
   if btn == 1 then
-    board[my][mx] = not board[my][mx]
+    grid[my][mx] = not grid[my][mx]
   end
   
 end
@@ -43,8 +43,8 @@ function love.keypressed(key)
     love.event.push("quit")
     
   elseif key == "space" then
-    -- update board once with "space"
-    board = updated_board()
+    -- update grid once with "space"
+    grid = updated_grid()
     -- set random cell color for a cool effect
     CELL_COLOR = random_color()
     background = {
@@ -56,12 +56,12 @@ function love.keypressed(key)
     
   elseif key == "r" then
     -- load random cells with "r"
-    board = random_cells()
+    grid = random_cells()
     auto = false -- disable auto
     
   elseif key == "n" then
-    -- create new empty board with "n"
-    board = create_cells()
+    -- create new empty grid with "n"
+    grid = create_cells()
     auto = false -- disable auto
     
   elseif key == "tab" then
