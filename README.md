@@ -3,7 +3,7 @@
 
 Commands:
 * Escape - close app
-* R - fill cells randomly
+* R - generate cells randomly
 * N - create new empty grid
 * Space - updates the grid 1 time
 * tab - automatically updates the grid every 0.5 seconds
