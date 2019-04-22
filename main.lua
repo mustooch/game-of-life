@@ -45,14 +45,6 @@ function love.keypressed(key)
   elseif key == "space" then
     -- update grid once with "space"
     grid = updated_grid()
-    -- set random cell color for a cool effect
-    CELL_COLOR = random_color()
-    background = {
-      -- for complementary colors
-      1-CELL_COLOR[1],
-      1-CELL_COLOR[2],
-      1-CELL_COLOR[3]
-      }
     
   elseif key == "r" then
     -- load random cells with "r"

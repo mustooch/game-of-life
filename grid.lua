@@ -1,7 +1,10 @@
 -- grid stuff:
 
-TILE = 12 -- fixed cell width,height
+TILE = 6 -- fixed cell width,height
 auto = false -- for auto cell updates
+ADD = 25 -- add this value everywhere to 
+--          make it look like the board is infinite
+--          or cells would block on the edges
 
 function random_color()
   -- returns random RGB color
@@ -9,16 +12,16 @@ function random_color()
   return rand
 end
 
-background = random_color()
-CELL_COLOR = random_color()
+background = {000/255, 153/255, 255/255}
+CELL_COLOR = {255/255, 255/255, 102/255}
 
 function create_cells()
   -- create the grid with fixed w,h 
   
   local cells = {}
-  for y = 1, HEI/TILE do
+  for y = -ADD, HEI/TILE+ADD do
     cells[y] = {}
-    for x = 1, WID/TILE do
+    for x = -ADD, WID/TILE+ADD do
       cells[y][x] = false -- init with false (dead cell)
     end
   end 
@@ -31,9 +34,9 @@ function random_cells()
   -- create the grid with fixed w,h 
   
   local cells = {}
-  for y = 1, HEI/TILE do
+  for y = -ADD, HEI/TILE+ADD do
     cells[y] = {}
-    for x = 1, WID/TILE do
+    for x = -ADD, WID/TILE+ADD do
       -- load cells randomly
       cells[y][x] = (math.random(1,2)==1 and true or false)
     end
@@ -56,9 +59,6 @@ function draw_net()
   end
   
 end
-
--- init with random cell color
-CELL_COLOR = random_color()
 
 function draw_cells()
   -- draw the cells to the screen
@@ -96,9 +96,9 @@ function neighbours(x, y)
     y_i = y+pos[2]
     
     -- if not on an edge
-    if x_i>=1 and y_i>=1
-    and x_i <= WID/TILE
-    and y_i <= HEI/TILE then
+    if x_i>=-ADD and y_i>=-ADD
+    and x_i <= WID/TILE+ADD
+    and y_i <= HEI/TILE+ADD then
       
       if grid[y_i][x_i] then
         count = count + 1 -- count living cell
@@ -117,9 +117,9 @@ function updated_grid()
   
   new = {}
   
-  for y = 1, HEI/TILE do
+  for y = -ADD, HEI/TILE+ADD do
     new[y] = {}
-    for x = 1, HEI/TILE do
+    for x = -ADD, HEI/TILE+ADD do
       
       --[[
       . if a cell has 2 or 3 neighbours it lives
