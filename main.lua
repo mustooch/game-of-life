@@ -46,10 +46,21 @@ function love.keypressed(key)
     -- update board once with "space"
     board = updated_board()
     -- set random cell color for a cool effect
-    CELL_COLOR = {math.random(), math.random(), math.random()}
+    CELL_COLOR = random_color()
+    background = {
+      -- for complementary colors
+      1-CELL_COLOR[1],
+      1-CELL_COLOR[2],
+      1-CELL_COLOR[3]
+      }
     
   elseif key == "r" then
-    -- create a new board with "r"
+    -- load random cells with "r"
+    board = random_cells()
+    auto = false -- disable auto
+    
+  elseif key == "n" then
+    -- create new empty board with "n"
     board = create_cells()
     auto = false -- disable auto
     
@@ -63,8 +74,8 @@ end
 
 function love.draw()
   
-  love.graphics.setBackgroundColor(0.5, 1, 1)
-  draw_net()
+  love.graphics.setBackgroundColor(background)
   draw_cells()
+  draw_net()
   
 end

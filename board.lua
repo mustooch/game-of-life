@@ -3,6 +3,15 @@
 TILE = 12 -- fixed cell width,height
 auto = false -- for auto cell updates
 
+function random_color()
+  -- returns random RGB color
+  rand = {math.random(), math.random(), math.random()}
+  return rand
+end
+
+background = random_color()
+CELL_COLOR = random_color()
+
 function create_cells()
   -- create the board with fixed w,h 
   
@@ -10,8 +19,23 @@ function create_cells()
   for y = 1, HEI/TILE do
     cells[y] = {}
     for x = 1, WID/TILE do
+      cells[y][x] = false -- init with false (dead cell)
+    end
+  end 
+  
+  return cells
+  
+end
+
+function random_cells()
+  -- create the board with fixed w,h 
+  
+  local cells = {}
+  for y = 1, HEI/TILE do
+    cells[y] = {}
+    for x = 1, WID/TILE do
+      -- load cells randomly
       cells[y][x] = (math.random(1,2)==1 and true or false)
-      -- init with false (dead cell)
     end
   end 
   
@@ -34,7 +58,7 @@ function draw_net()
 end
 
 -- init with random cell color
-CELL_COLOR = {math.random(), math.random(), math.random()}
+CELL_COLOR = random_color()
 
 function draw_cells()
   -- draw the cells to the screen
